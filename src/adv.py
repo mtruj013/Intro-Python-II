@@ -3,6 +3,7 @@ from player import Player
 
 # Declare all the rooms
 
+#this is a dictionary
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
@@ -39,7 +40,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player('Bob', room['outside'])
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -51,20 +52,50 @@ player = Player('Bob', room['outside'])
 #
 # If the user enters "q", quit the game.
 import sys
+
+player = Player('Bob', room['outside'])
+
 move = 0
 
 while move != len(sys.argv) + 1:
 
-    move = input("Please make a move: ")
+    move = input("Please make a move: \n")
     
     move = str(move)
-    
-    if move == "n_to":
-        player.current_room = room['foyer']
-      
-        print(f"description: {player.current_room.description} room: {player.current_room.name}")
-    elif move ==  "q":
+
+
+    if move == "n":
+        if player.current_room.n_to:
+            player.current_room = player.current_room.n_to
+            
+            print(f"room: {player.current_room.name}\t description: {player.current_room.description}\n")
+        else:
+            print("Whoops, there's no room there!")
+    elif move == "s":
+       
+        if player.current_room.s_to:
+            player.current_room = player.current_room.s_to
+
+            print(f"room: {player.current_room.name}\t description: {player.current_room.description}")
+        else:
+            print("Whoops, there's no room there!")
+    elif move == "e":
+        if player.current_room.e_to:
+            player.current_room = player.current_room.e_to
+
+            print(f"room: {player.current_room.name}\t description: {player.current_room.description}")
+        else:
+            print("Whoops, there's no room there!")
+    elif move == "w":
+        if player.current_room.w_to:
+            player.current_room = player.current_room.w_to
+            
+            print(f"room: {player.current_room.name}\t description: {player.current_room.description}")
+        else:
+            print("Whoops, there's no room there!")
+    elif move == "q":
         print("You have exited the game")
         break
     else:
-        print("Your input is invalid")
+        print("Please input a cardinal direction: n, s, e, or w")
+        
